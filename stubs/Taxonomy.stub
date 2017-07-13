@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Taxonomies;
+
+use Core\Taxonomy;
+
+class DummyClassName extends Taxonomy {
+
+    protected $name = 'DummyName';
+
+    /**
+     * List of post types the taxonomy is associated with
+     *
+     * @var array
+     */
+    protected $postTypes = [];
+
+    /**
+     * Taxonomy settings. For available options
+     *
+     * @see https://github.com/johnbillion/extended-taxos register_extended_taxonomy()
+     * @see https://codex.wordpress.org/Function_Reference/register_taxonomy register_taxonomy()
+     *
+     * @return array
+     */
+    protected function args()
+    {
+        return [];
+    }
+}

@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Endpoints;
+
+use Core\Endpoint;
+
+class DummyClassName extends Endpoint {
+
+    /**
+     * Set authOnly to true if you want the endpoint to be
+     * accessible only bu authorized users
+     *
+     * @var bool
+     */
+    protected $authOnly = false;
+
+    /**
+     * Action name to be handled
+     *
+     * @var string
+     */
+    protected $action = 'DummyName';
+
+    public function handle()
+    {
+        // ...
+    }
+}

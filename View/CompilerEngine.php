@@ -1,0 +1,136 @@
+<?php
+
+namespace Core\View;
+
+use ErrorException;
+use Exception;
+use Symfony\Component\Debug\Exception\FatalThrowableError;
+use Throwable;
+
+class CompilerEngine {
+    /**
+     * The Blade compiler instance.
+     *
+     * @var \Core\View\Compilers\Blade
+     */
+    protected $compiler;
+
+    /**
+     * A stack of the last compiled templates.
+     *
+     * @var array
+     */
+    protected $lastCompiled = [];
+
+    /**
+     * Create a new Blade view engine instance.
+     */
+    public function __construct()
+    {
+        $this->compiler = new Compilers\Blade();
+    }
+
+    /**
+     * Get the evaluated contents of the view.
+     *
+     * @param  string $path
+     * @param  array $data
+     *
+     * @return string
+     */
+    public function get($path, array $data = [])
+    {
+        $this->lastCompiled[] = $path;
+
+        // If this given view has expired, which means it has simply been edited since
+        // it was last compiled, we will re-compile the views so we can evaluate a
+        // fresh copy of the view. We'll pass the compiler the path of the view.
+        if ($this->compiler->isExpired($path)) {
+            $this->compiler->compile($path);
+        }
+
+        $compiled = $this->compiler->getCompiledPath($path);
+
+        // Once we have the path to the compiled file, we will evaluate the paths with
+        // typical PHP just like any other templates. We also keep a stack of views
+        // which have been rendered for right exception messages to be generated.
+        $results = $this->evaluatePath($compiled, $data);
+
+        array_pop($this->lastCompiled);
+
+        return $results;
+    }
+
+    /**
+     * Handle a view exception.
+     *
+     * @param  \Exception $e
+     * @param  int $obLevel
+     *
+     * @return void
+     *
+     * @throws \Exception
+     */
+    protected function handleViewException(Exception $e, $obLevel)
+    {
+        $e = new ErrorException($this->getMessage($e), 0, 1, $e->getFile(), $e->getLine(), $e);
+
+        while (ob_get_level() > $obLevel) {
+            ob_end_clean();
+        }
+
+        throw $e;
+    }
+
+    /**
+     * Get the exception message for an exception.
+     *
+     * @param  \Exception $e
+     *
+     * @return string
+     */
+    protected function getMessage(Exception $e)
+    {
+        return $e->getMessage() . ' (View: ' . realpath(last($this->lastCompiled)) . ')';
+    }
+
+    /**
+     * Get the compiler implementation.
+     *
+     * @return \Core\View\Compilers\Blade
+     */
+    public function getCompiler()
+    {
+        return $this->compiler;
+    }
+
+    /**
+     * Get the evaluated contents of the view at the given path.
+     *
+     * @param  string $__path
+     * @param  array $__data
+     *
+     * @return string
+     */
+    protected function evaluatePath($__path, $__data)
+    {
+        $obLevel = ob_get_level();
+
+        ob_start();
+
+        extract($__data, EXTR_SKIP);
+
+        // We'll evaluate the contents of the view inside a try/catch block so we can
+        // flush out any stray output that might get out before an error occurs or
+        // an exception is thrown. This prevents any partial views from leaking.
+        try {
+            include $__path;
+        } catch (Exception $e) {
+            $this->handleViewException($e, $obLevel);
+        } catch (Throwable $e) {
+            $this->handleViewException(new FatalThrowableError($e), $obLevel);
+        }
+
+        return ltrim(ob_get_clean());
+    }
+}

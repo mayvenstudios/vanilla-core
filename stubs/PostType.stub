@@ -1,0 +1,56 @@
+<?php
+
+namespace App\PostTypes;
+
+use Core\PostType;
+
+class DummyClassName extends PostType {
+
+    /**
+     * Post Type name
+     *
+     * @var string
+     */
+    protected $name = 'DummyName';
+
+    /**
+     * You can specify `singular`, `plural` and `slug` for a post type in $names array
+     * The default values are generated from the post type name.
+     *
+     * @var array overrides
+     */
+    protected $names = [
+        'singular' => 'DummySingular',
+        'plural' => 'DummyPlural',
+        'slug' => 'DummySlug'
+    ];
+
+    /**
+     * Define a template for archive page
+     *
+     * @var string
+     */
+    protected $archiveTemplate = 'DummySlug/index'; // resources/views/DummySlug/index.blade.php
+
+    /**
+     * Templates available for a post type
+     *
+     * @var string
+     */
+    protected $templates = [
+        'Default' => 'DummySlug/single' // resources/views/DummySlug/single.blade.php
+    ];
+
+    /**
+     * Post Type settings. For available options
+     *
+     * @see https://github.com/johnbillion/extended-cpts register_extended_post_type()
+     * @see https://codex.wordpress.org/Function_Reference/register_post_type register_post_type()
+     *
+     * @return array
+     */
+    protected function args()
+    {
+        return [];
+    }
+}
