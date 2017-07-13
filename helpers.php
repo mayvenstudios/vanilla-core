@@ -45,7 +45,7 @@ if (!function_exists('mix')) {
         $path = '/' . ltrim($path, '/');
 
         if (!$manifest) {
-            if (!file_exists($manifestPath = __DIR__ . '/../resources/assets/compiled/mix-manifest.json')) {
+            if (!file_exists($manifestPath = app()->assetsPath('compiled/mix-manifest.json'))) {
                 throw new Exception('The Mix manifest does not exist.');
             }
 

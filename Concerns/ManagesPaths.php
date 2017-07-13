@@ -68,4 +68,10 @@ trait ManagesPaths {
         $path = ltrim($path, DIRECTORY_SEPARATOR);
         return $this->path(join(DIRECTORY_SEPARATOR, ['app', $path]));
     }
+
+    public function assetsPath($path)
+    {
+        $path = ltrim($path, DIRECTORY_SEPARATOR);
+        return $this->path(join(DIRECTORY_SEPARATOR, ['resources', 'assets', $path]));
+    }
 }
