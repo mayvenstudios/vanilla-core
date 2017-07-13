@@ -60,7 +60,7 @@ trait ManagesPaths {
     public function compiledPath($path = '')
     {
         $path = ltrim($path, DIRECTORY_SEPARATOR);
-        return $this->path(join(DIRECTORY_SEPARATOR, ['..', 'uploads', 'compiled', $path]));
+        return join(DIRECTORY_SEPARATOR, [wp_upload_dir('view')['path'], $path]);
     }
 
     public function appPath($path)
