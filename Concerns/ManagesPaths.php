@@ -1,8 +1,9 @@
 <?php
 
-namespace Core\Concerns;
+namespace Vanilla\Concerns;
 
 trait ManagesPaths {
+    
     /** @var string */
     protected $rootPath = '';
 
@@ -60,12 +61,6 @@ trait ManagesPaths {
     {
         $path = ltrim($path, DIRECTORY_SEPARATOR);
         return $this->viewsPath(join(DIRECTORY_SEPARATOR, ['compiled', $path]));
-    }
-
-    public function corePath($path = '')
-    {
-        $path = ltrim($path, DIRECTORY_SEPARATOR);
-        return $this->path(join(DIRECTORY_SEPARATOR, ['core', $path]));
     }
 
     public function appPath($path)

@@ -158,7 +158,7 @@ if (!function_exists('post')) {
     /**
      * Get the *current* custom post type object
      *
-     * @return null|\Core\PostType
+     * @return null|\Vanilla\PostType
      */
     function post()
     {
@@ -170,7 +170,7 @@ if (!function_exists('post')) {
         /**
          * Try to get instance of the post type class
          *
-         * @see Core\PostType::getInstance()
+         * @see Vanilla\PostType::getInstance()
          */
         return $class ? $class::getInstance() : null;
     }
@@ -182,7 +182,7 @@ if (!function_exists('view')) {
      * @param $view
      * @param array $data
      *
-     * @return \Core\View\View
+     * @return \Vanilla\View\View
      */
     function view($view, $data = [])
     {

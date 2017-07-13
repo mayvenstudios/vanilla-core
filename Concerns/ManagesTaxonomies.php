@@ -1,8 +1,8 @@
 <?php
 
-namespace Core\Concerns;
+namespace Vanilla\Concerns;
 
-use Core\Taxonomy;
+use Vanilla\Taxonomy;
 use Illuminate\Support\Collection;
 
 trait ManagesTaxonomies {

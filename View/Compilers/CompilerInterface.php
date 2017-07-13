@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\View\Compilers;
+namespace Vanilla\View\Compilers;
 
 interface CompilerInterface {
     /**

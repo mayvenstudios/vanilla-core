@@ -1,9 +1,9 @@
 <?php
 
-namespace Core;
+namespace Vanilla;
 
 
-use Core\View\Factory;
+use Vanilla\View\Factory;
 
 abstract class Theme {
 

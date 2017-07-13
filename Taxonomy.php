@@ -1,6 +1,6 @@
 <?php
 
-namespace Core;
+namespace Vanilla;
 
 abstract class Taxonomy {
 
@@ -42,7 +42,7 @@ abstract class Taxonomy {
     }
 
     /**
-     * @return array associated Core\PostType names
+     * @return array associated Vanilla\PostType names
      */
     public function postTypeNames()
     {

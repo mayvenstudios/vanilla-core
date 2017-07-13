@@ -1,8 +1,8 @@
 <?php
 
-namespace Core\Concerns;
+namespace Vanilla\Concerns;
 
-use Core\Endpoint;
+use Vanilla\Endpoint;
 use Illuminate\Support\Collection;
 
 trait ManagesEndpoints {

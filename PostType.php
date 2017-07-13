@@ -1,8 +1,8 @@
 <?php
 
-namespace Core;
+namespace Vanilla;
 
-use Core\Query\Builder;
+use Vanilla\Query\Builder;
 
 abstract class PostType {
 

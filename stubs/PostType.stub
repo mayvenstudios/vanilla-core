@@ -2,7 +2,7 @@
 
 namespace App\PostTypes;
 
-use Core\PostType;
+use Vanilla\PostType;
 
 class DummyClassName extends PostType {
 

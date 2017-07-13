@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Query;
+namespace Vanilla\Query;
 
 class Builder {
 

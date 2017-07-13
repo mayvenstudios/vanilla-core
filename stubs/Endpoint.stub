@@ -2,7 +2,7 @@
 
 namespace App\Endpoints;
 
-use Core\Endpoint;
+use Vanilla\Endpoint;
 
 class DummyClassName extends Endpoint {
 

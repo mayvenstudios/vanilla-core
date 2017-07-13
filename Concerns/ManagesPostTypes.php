@@ -1,8 +1,8 @@
 <?php
 
-namespace Core\Concerns;
+namespace Vanilla\Concerns;
 
-use Core\PostType;
+use Vanilla\PostType;
 use Illuminate\Support\Collection;
 
 trait ManagesPostTypes {

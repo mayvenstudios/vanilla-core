@@ -1,4 +1,4 @@
-<?php namespace Core\View;
+<?php namespace Vanilla\View;
 
 use ArrayAccess;
 use BadMethodCallException;
@@ -11,14 +11,14 @@ class View implements ArrayAccess {
     /**
      * The view factory instance.
      *
-     * @var \Core\View\Factory
+     * @var \Vanilla\View\Factory
      */
     protected $factory;
 
     /**
      * The engine implementation.
      *
-     * @var \Core\View\CompilerEngine
+     * @var \Vanilla\View\CompilerEngine
      */
     protected $engine;
 
@@ -46,7 +46,7 @@ class View implements ArrayAccess {
     /**
      * Create a new view instance.
      *
-     * @param  \Core\View\Factory $factory
+     * @param  \Vanilla\View\Factory $factory
      * @param  string $view
      * @param  mixed $data
      */

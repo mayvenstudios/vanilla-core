@@ -1,8 +1,8 @@
 <?php
 
-namespace Core\Console\Commands;
+namespace Vanilla\Console\Commands;
 
-use Core\Console\Generator;
+use Vanilla\Console\Generator;
 
 class MakeCommand extends Generator {
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\View;
+namespace Vanilla\View;
 
 use ErrorException;
 use Exception;
@@ -11,7 +11,7 @@ class CompilerEngine {
     /**
      * The Blade compiler instance.
      *
-     * @var \Core\View\Compilers\Blade
+     * @var \Vanilla\View\Compilers\Blade
      */
     protected $compiler;
 
@@ -97,7 +97,7 @@ class CompilerEngine {
     /**
      * Get the compiler implementation.
      *
-     * @return \Core\View\Compilers\Blade
+     * @return \Vanilla\View\Compilers\Blade
      */
     public function getCompiler()
     {

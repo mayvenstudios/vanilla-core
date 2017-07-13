@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\View\Compilers;
+namespace Vanilla\View\Compilers;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;

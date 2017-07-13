@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Console;
+namespace Vanilla\Console;
 
 use WP_CLI;
 
@@ -10,7 +10,7 @@ use WP_CLI;
  *
  * @see http://wp-cli.org/
  *
- * @package Core
+ * @package Vanilla
  */
 abstract class Command {
 

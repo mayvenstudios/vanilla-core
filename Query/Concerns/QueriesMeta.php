@@ -1,11 +1,11 @@
 <?php
-namespace Core\Query\Concerns;
+namespace Vanilla\Query\Concerns;
 
 /**
  * Trait QueriesMeta
  *
  * @see https://codex.wordpress.org/Class_Reference/WP_Meta_Query
- * @package Core\Query\Concerns
+ * @package Vanilla\Query\Concerns
  */
 trait QueriesMeta {
 

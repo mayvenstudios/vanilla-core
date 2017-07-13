@@ -1,12 +1,8 @@
 <?php
 
-namespace Core\Concerns;
+namespace Vanilla\Concerns;
 
-use Core\Console\Command;
-use Core\Console\Commands\MakeCommand;
-use Core\Console\Commands\MakeEndpoint;
-use Core\Console\Commands\MakePostType;
-use Core\Console\Commands\MakeTaxonomy;
+use Vanilla\Console\Command;
 use Illuminate\Support\Collection;
 
 trait ManagesCommands {
@@ -17,10 +13,10 @@ trait ManagesCommands {
      * @var array
      */
     protected $coreCommands = [
-        MakePostType::class,
-        MakeTaxonomy::class,
-        MakeEndpoint::class,
-        MakeCommand::class
+        Commands\MakePostType::class,
+        Commands\MakeTaxonomy::class,
+        Commands\MakeEndpoint::class,
+        Commands\MakeCommand::class
     ];
 
     /**

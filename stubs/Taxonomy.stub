@@ -2,7 +2,7 @@
 
 namespace App\Taxonomies;
 
-use Core\Taxonomy;
+use Vanilla\Taxonomy;
 
 class DummyClassName extends Taxonomy {
 

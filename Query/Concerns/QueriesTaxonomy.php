@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Query\Concerns;
+namespace Vanilla\Query\Concerns;
 
 trait QueriesTaxonomy {
 

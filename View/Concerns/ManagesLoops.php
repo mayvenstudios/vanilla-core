@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\View\Concerns;
+namespace Vanilla\View\Concerns;
 
 use Countable;
 use Illuminate\Support\Arr;

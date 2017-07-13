@@ -1,8 +1,8 @@
 <?php
 
-namespace Core\View\Compilers\Concerns;
+namespace Vanilla\View\Compilers\Concerns;
 
-use Core\View\Factory as ViewFactory;
+use Vanilla\View\Factory as ViewFactory;
 
 trait CompilesLayouts {
     /**

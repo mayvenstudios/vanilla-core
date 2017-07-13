@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Concerns;
+namespace Vanilla\Concerns;
 
 trait MovesAdminBar {
 

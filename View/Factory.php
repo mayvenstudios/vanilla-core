@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\View;
+namespace Vanilla\View;
 
 class Factory {
 
@@ -41,7 +41,7 @@ class Factory {
      * @param  array $data
      * @param  array $mergeData
      *
-     * @return \Core\View\View
+     * @return \Vanilla\View\View
      */
     public function make($view, $data = [], $mergeData = [])
     {
@@ -59,7 +59,7 @@ class Factory {
      * @param  string $path
      * @param  array $data
      *
-     * @return \Core\View\View
+     * @return \Vanilla\View\View
      */
     protected function viewInstance($path, $data)
     {

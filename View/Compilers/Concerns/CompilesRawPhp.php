@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\View\Compilers\Concerns;
+namespace Vanilla\View\Compilers\Concerns;
 
 trait CompilesRawPhp {
     /**

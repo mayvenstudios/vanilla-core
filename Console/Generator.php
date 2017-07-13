@@ -1,5 +1,5 @@
 <?php
-namespace Core\Console;
+namespace Vanilla\Console;
 
 abstract class Generator extends Command {
 
@@ -29,7 +29,8 @@ abstract class Generator extends Command {
 
     protected function getStubContent($stubName)
     {
-        return file_get_contents(app()->corePath("stubs/{$stubName}.stub"));
+        $path = __DIR__ . "/../stubs/{$stubName}.stub";
+        return file_get_contents($path);
     }
 
     protected function buildClass($content, $name)
