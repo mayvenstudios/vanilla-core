@@ -2,6 +2,8 @@
 
 namespace Vanilla\Query;
 
+use Vanilla\Paginator;
+
 class Builder {
 
     use Concerns\QueriesTaxonomy;
@@ -19,6 +21,10 @@ class Builder {
         $taxQuery = $this->buildTaxonomyQuery();
         if ($taxQuery) {
             $this->set('tax_query', $taxQuery);
+        }
+
+        if(!isset($this->args['_paged'])) {
+            $this->page(intval($_REQUEST['page_num']));
         }
 
         if (!isset($this->args['posts_per_page'])) {
@@ -228,7 +234,7 @@ class Builder {
     public function paginate($val = null)
     {
         $val = $val ?: get_option('posts_per_page');
-        return $this->perPage($val)->get();
+        return $this->perPage($val)->paginator();
     }
 
     /**
@@ -292,12 +298,17 @@ class Builder {
         return new \WP_Query($this->buildArgs());
     }
 
+    public function paginator()
+    {
+        return new Paginator($this->createQuery());
+    }
+
     /**
      * @return \Generator
      */
     public function get()
     {
-        return $this->generator($this->createQuery());
+        return static::generator($this->createQuery());
     }
 
     /**
@@ -305,7 +316,7 @@ class Builder {
      *
      * @return \Generator
      */
-    protected function generator(\WP_Query $wpQuery)
+    public static function generator(\WP_Query $wpQuery)
     {
         while ($wpQuery->have_posts()) {
             $wpQuery->the_post();
