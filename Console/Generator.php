@@ -16,6 +16,8 @@ abstract class Generator extends Command {
         }
 
         $this->save($path, $this->buildClass($this->getStubContent($this->stubName), $name));
+
+        \WP_CLI::runcommand('flush-rewrites');
     }
 
     protected function getNameInput($args)

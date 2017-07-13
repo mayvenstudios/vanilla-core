@@ -3,6 +3,7 @@
 namespace Vanilla\Concerns;
 
 use Vanilla\Console\Command;
+use Vanilla\Console\Commands;
 use Illuminate\Support\Collection;
 
 trait ManagesCommands {
@@ -16,7 +17,8 @@ trait ManagesCommands {
         Commands\MakePostType::class,
         Commands\MakeTaxonomy::class,
         Commands\MakeEndpoint::class,
-        Commands\MakeCommand::class
+        Commands\MakeCommand::class,
+        Commands\FlushRewrites::class
     ];
 
     /**
