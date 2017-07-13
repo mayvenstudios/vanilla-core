@@ -244,12 +244,12 @@ abstract class Theme {
 
     public function myAcfSettingsPath($path)
     {
-        return get_stylesheet_directory() . '/core/lib/acf/';
+        return __DIR__ . '/lib/acf/';
     }
 
     public function myAcfSettingsDir($dir)
     {
-        return get_stylesheet_directory_uri() . '/core/lib/acf/';
+        return __DIR__ . '/lib/acf/';
     }
 
     /**
