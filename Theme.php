@@ -1,7 +1,5 @@
 <?php
-
 namespace Vanilla;
-
 
 use Vanilla\View\Factory;
 
@@ -30,6 +28,14 @@ abstract class Theme {
      * Method that contains all the custom initialization logic
      */
     abstract protected function startup();
+
+    /**
+     * Method that returns the array of data to be
+     * available via window.Vanilla object
+     *
+     * @return mixed
+     */
+    abstract protected function vanillaObject();
 
     /**
      * @return static
@@ -93,7 +99,7 @@ abstract class Theme {
     public function registerAssets()
     {
         $noJQuery = $this->config('include_jquery') === false;
-        if($noJQuery) {
+        if ($noJQuery) {
             wp_deregister_script('jquery');
         }
 
@@ -107,6 +113,7 @@ abstract class Theme {
      */
     public function echoCustomHeader()
     {
+        echo "<script>window.Vanilla = " . json_encode($this->vanillaObject()) . "</script>";
         echo get_field('header_css_js_custom', 'option');
         echo $this->faviconHtml();
     }
@@ -296,7 +303,7 @@ abstract class Theme {
             }
         }, 1);
 
-        add_filter('found_posts', function ($found_posts, \WP_Query$query) {
+        add_filter('found_posts', function ($found_posts, \WP_Query $query) {
             if ($query->is_home()) {
                 return $found_posts - ($query->query_vars['_offset'] ?: 0);
             }
