@@ -60,7 +60,7 @@ trait ManagesPaths {
     public function compiledPath($path = '')
     {
         $path = ltrim($path, DIRECTORY_SEPARATOR);
-        return $this->viewsPath(join(DIRECTORY_SEPARATOR, ['compiled', $path]));
+        return $this->path(join(DIRECTORY_SEPARATOR, ['..', 'uploads', 'compiled', $path]));
     }
 
     public function appPath($path)
