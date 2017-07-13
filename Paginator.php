@@ -26,7 +26,7 @@ class Paginator {
      *
      * @return \Generator
      */
-    public function get()
+    public function items()
     {
         return Builder::generator($this->query);
     }
