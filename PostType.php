@@ -116,7 +116,7 @@ abstract class PostType {
 
     protected function registerTemplates()
     {
-        if(count($this->templates) === 0) {
+        if (count($this->templates) === 0) {
             return null;
         }
 
@@ -162,24 +162,48 @@ abstract class PostType {
         return (new Builder())->type($this->name());
     }
 
+    /**
+     * Create a query builder for a post type
+     *
+     * @return Builder
+     */
     public static function query()
     {
         return (new static)->newQuery();
     }
 
     /**
-     * @return mixed
+     * Get all posts of a given post type
+     *
+     * @return \Generator
      */
     public static function all()
     {
         return static::query()->get();
     }
 
+    /**
+     * If there is no custom parameter on a PostType
+     * Object, user might want to access parameter from WP_Post object
+     *
+     * @param $name
+     *
+     * @return mixed
+     */
     public function __get($name)
     {
         return get_post()->$name;
     }
 
+    /**
+     * This allows calling Query Builder methods statically on
+     * PostType class. Post::all(), Page::paginate() etc.
+     *
+     * @param $name
+     * @param $arguments
+     *
+     * @return mixed
+     */
     public static function __callStatic($name, $arguments)
     {
         return call_user_func_array([static::query(), $name], $arguments);

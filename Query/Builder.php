@@ -23,7 +23,7 @@ class Builder {
             $this->set('tax_query', $taxQuery);
         }
 
-        if(!isset($this->args['_paged'])) {
+        if (!isset($this->args['_paged'])) {
             $this->page(intval($_REQUEST['page_num']));
         }
 
@@ -229,7 +229,7 @@ class Builder {
      *
      * @param null $val posts per page
      *
-     * @return \Generator
+     * @return Paginator
      */
     public function paginate($val = null)
     {
@@ -298,6 +298,9 @@ class Builder {
         return new \WP_Query($this->buildArgs());
     }
 
+    /**
+     * @return Paginator
+     */
     public function paginator()
     {
         return new Paginator($this->createQuery());
