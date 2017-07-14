@@ -7,18 +7,22 @@
             "email": "ikoolik@gmail.com"
         }
     ],
+    "require": {
+        "filp/whoops": "^2.1",
+        "illuminate/support": "^5.4",
+        "symfony/var-dumper": "^3.3",
+        "symfony/debug": "^3.3",
+        "johnbillion/extended-taxos": "~2.0",
+        "johnbillion/extended-cpts": "~3.0"
+    },
     "autoload": {
         "psr-4": {
             "Vanilla\\": ""
         },
         "files": [
-            "helpers.php"
+            "helpers.php",
+            "vendor/johnbillion/extended-taxos/extended-taxos.php",
+            "vendor/johnbillion/extended-cpts/extended-cpts.php"
         ]
-    },
-    "require": {
-        "filp/whoops": "^2.1",
-        "illuminate/support": "^5.4",
-        "symfony/var-dumper": "^3.3",
-        "symfony/debug": "^3.3"
     }
 }
