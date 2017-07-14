@@ -14,5 +14,11 @@
         "files": [
             "helpers.php"
         ]
+    },
+    "require": {
+        "filp/whoops": "^2.1",
+        "illuminate/support": "^5.4",
+        "symfony/var-dumper": "^3.3",
+        "symfony/debug": "^3.3"
     }
 }

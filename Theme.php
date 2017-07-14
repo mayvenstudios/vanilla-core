@@ -2,6 +2,7 @@
 namespace Vanilla;
 
 use Vanilla\View\Factory;
+use Whoops\Handler\CallbackHandler;
 
 abstract class Theme {
 
@@ -76,6 +77,7 @@ abstract class Theme {
      */
     public function init()
     {
+        $this->registerErrorHandling();
         $this->loadConfiguration();
         $this->registerPostTypes();
         $this->registerEndpoints();
@@ -91,6 +93,20 @@ abstract class Theme {
         $this->loadACF();
         $this->fixPaginationWithCustomOffset();
         $this->startup();
+    }
+
+    public function registerErrorHandling()
+    {
+        $whoops = new \Whoops\Run;
+        if(defined('WP_DEBUG') && \WP_DEBUG) {
+            $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+        } else {
+            $whoops->pushHandler(new CallbackHandler(function ($e) {
+                die(view('path: '.__DIR__ . '/error.blade.php')->render());
+            }));
+        }
+
+        $whoops->register();
     }
 
     /**
@@ -269,7 +285,7 @@ abstract class Theme {
             add_filter('acf/settings/dir', array($this, 'myAcfSettingsDir'));
             include_once('lib/acf/acf.php');
 
-            if ((WP_DEBUG == false && $this->config('force_enable_acf_option_panel') === false) || FORCE_HIDE_ACF_EDIT === true) {
+            if (WP_DEBUG == false && $this->config('force_enable_acf_option_panel') === false) {
                 add_filter('acf/settings/show_admin', '__return_false');
             }
         }
@@ -288,7 +304,8 @@ abstract class Theme {
     {
         add_action('pre_get_posts', function (\WP_Query &$query) {
             global $paged;
-            $pageNum = $query->query_vars['_paged'] ?: $paged;
+
+            $pageNum = isset($query->query_vars['_paged']) ? $query->query_vars['_paged'] : $paged;
 
             if ($pageNum) {
                 $query->set('paged', $pageNum);
@@ -305,7 +322,7 @@ abstract class Theme {
 
         add_filter('found_posts', function ($found_posts, \WP_Query $query) {
             if ($query->is_home()) {
-                return $found_posts - ($query->query_vars['_offset'] ?: 0);
+                return $found_posts - (isset($query->query_vars['_offset']) ? $query->query_vars['_offset'] : 0);
             }
             return $found_posts;
         }, 1, 2);

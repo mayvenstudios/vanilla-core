@@ -23,7 +23,7 @@ class Builder {
             $this->set('tax_query', $taxQuery);
         }
 
-        if (!isset($this->args['_paged'])) {
+        if (!isset($this->args['_paged']) && isset($_REQUEST['page_num'])) {
             $this->page(intval($_REQUEST['page_num']));
         }
 
