@@ -2,7 +2,6 @@
 namespace Vanilla;
 
 use Vanilla\View\Factory;
-use Whoops\Handler\CallbackHandler;
 
 abstract class Theme {
 
@@ -14,7 +13,8 @@ abstract class Theme {
         Concerns\ManagesPaths,
         Concerns\GeneratesFaviconHtml,
         Concerns\IntegratesBlade,
-        Concerns\MovesAdminBar;
+        Concerns\MovesAdminBar,
+        Concerns\ManagesErrorReporting;
 
     /** @var Factory */
     protected $view;
@@ -93,20 +93,6 @@ abstract class Theme {
         $this->loadACF();
         $this->fixPaginationWithCustomOffset();
         $this->startup();
-    }
-
-    public function registerErrorHandling()
-    {
-        $whoops = new \Whoops\Run;
-        if(defined('WP_DEBUG') && \WP_DEBUG) {
-            $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
-        } else {
-            $whoops->pushHandler(new CallbackHandler(function ($e) {
-                die(view('path: '.__DIR__ . '/error.blade.php')->render());
-            }));
-        }
-
-        $whoops->register();
     }
 
     /**

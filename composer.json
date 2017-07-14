@@ -20,9 +20,7 @@
             "Vanilla\\": ""
         },
         "files": [
-            "helpers.php",
-            "vendor/johnbillion/extended-taxos/extended-taxos.php",
-            "vendor/johnbillion/extended-cpts/extended-cpts.php"
+            "helpers.php"
         ]
     }
 }
