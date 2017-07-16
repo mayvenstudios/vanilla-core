@@ -10,11 +10,11 @@ trait ManagesErrorReporting {
     public function registerErrorHandling()
     {
         $whoops = new Run;
-        if(defined('WP_DEBUG') && \WP_DEBUG) {
+        if($this->debugMode()) {
             $whoops->pushHandler(new PrettyPageHandler);
         } else {
             $whoops->pushHandler(new CallbackHandler(function ($exception) {
-                $template = $this->config('custom_error_template', 'path: '.__DIR__ . '/error.blade.php');
+                $template = $this->config('custom_error_template') ?: 'path: '.__DIR__ . '/../error.blade.php';
                 die(view($template, ['exception' => $exception])->render());
             }));
         }
