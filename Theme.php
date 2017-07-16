@@ -90,7 +90,6 @@ abstract class Theme {
         $this->configureSidebars();
         $this->requireExtensions();
         $this->moveAdminBar();
-        $this->loadACF();
         $this->fixPaginationWithCustomOffset();
         $this->startup();
     }
@@ -236,52 +235,6 @@ abstract class Theme {
     final private function __wakeup() {}
 
     final private function __clone() {}
-
-
-    public function parseTemplateDirectory($value, $post_id, $field)
-    {
-        $searchAndReplace = [
-            '{IMAGEPATH}' => get_template_directory_uri() . '/public/images'
-        ];
-
-        foreach ($searchAndReplace as $search => $replace) {
-            $value = str_replace($search, $replace, $value);
-        }
-
-        return $value;
-    }
-
-    public function myAcfSettingsPath($path)
-    {
-        return __DIR__ . '/lib/acf/';
-    }
-
-    public function myAcfSettingsDir($dir)
-    {
-        return __DIR__ . '/lib/acf/';
-    }
-
-    /**
-     * Loads ACF if the plugin is not included.
-     */
-    protected function loadACF()
-    {
-        if (!class_exists('acf')) {
-            add_filter('acf/settings/path', array($this, 'myAcfSettingsPath'));
-            add_filter('acf/settings/dir', array($this, 'myAcfSettingsDir'));
-            include_once('lib/acf/acf.php');
-
-            if (WP_DEBUG == false && $this->config('force_enable_acf_option_panel') === false) {
-                add_filter('acf/settings/show_admin', '__return_false');
-            }
-        }
-
-        add_filter('acf/format_value', array($this, 'parseTemplateDirectory'), 10, 3);
-
-        if (function_exists('acf_wpcli_register_groups')) {
-            acf_wpcli_register_groups();
-        }
-    }
 
     /**
      * @see https://codex.wordpress.org/Making_Custom_Queries_using_Offset_and_Pagination
