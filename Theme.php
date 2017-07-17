@@ -266,7 +266,8 @@ abstract class Theme {
                 $query->set('paged', $pageNum);
                 $query->is_paged = ($pageNum > 1);
 
-                if ($customOffset = $query->query_vars['_offset']) {
+                if (isset($query->query_vars['_offset'])) {
+                    $customOffset = $query->query_vars['_offset'];
                     $perPage = $query->query['posts_per_page'] ?: get_option('posts_per_page');
                     $trueOffset = $customOffset + (($pageNum - 1) * $perPage);
                     $query->set('offset', $trueOffset);
