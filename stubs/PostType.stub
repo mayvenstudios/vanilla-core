@@ -42,6 +42,15 @@ class DummyClassName extends PostType {
     ];
 
     /**
+     * List of custom fields
+     *
+     * @example ['sub_heading' => ['label' => 'Sub Heading', 'type' => 'text']]
+     *
+     * @var array
+     */
+    protected $fields = [];
+
+    /**
      * Post Type settings. For available options
      *
      * @see https://github.com/johnbillion/extended-cpts register_extended_post_type()

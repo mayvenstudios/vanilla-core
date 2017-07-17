@@ -41,6 +41,15 @@ abstract class PostType {
     protected $templates = [];
 
     /**
+     * List of custom fields
+     *
+     * @example ['sub_heading' => ['label' => 'Sub Heading', 'type' => 'text']]
+     *
+     * @var array
+     */
+    protected $fields = [];
+
+    /**
      * Post Type settings. For available options
      *
      * @see https://github.com/johnbillion/extended-cpts register_extended_post_type()
@@ -110,6 +119,7 @@ abstract class PostType {
         }
 
         $this->registerTemplates();
+        $this->registerCustomFields();
 
         return $this;
     }
@@ -132,12 +142,35 @@ abstract class PostType {
         wp_cache_set('post_templates-' . app()->cacheHash(), $themeTemplates, 'themes', 1800);
     }
 
+    protected function registerCustomFields()
+    {
+        if(!count($this->fields)) {
+            return;
+        }
+
+        $fieldCreator = app()->fields()->forPostType($this);
+
+        foreach ($this->fields as $key => $args) {
+            $fieldCreator->add($key, $args);
+        }
+
+        $fieldCreator->create();
+    }
+
     /**
      * @return string
      */
     public function name()
     {
         return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function singularName()
+    {
+        return isset($this->names['singular']) ? $this->names['singular'] : ucfirst($this->name());
     }
 
     /**

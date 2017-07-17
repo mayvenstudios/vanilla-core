@@ -1,7 +1,9 @@
 <?php
+
 namespace Vanilla;
 
-use Vanilla\View\Factory;
+use Vanilla\View;
+use Vanilla\Fields;
 
 abstract class Theme {
 
@@ -16,8 +18,11 @@ abstract class Theme {
         Concerns\MovesAdminBar,
         Concerns\ManagesErrorReporting;
 
-    /** @var Factory */
+    /** @var View\Factory */
     protected $view;
+
+    /** @var Fields\Factory */
+    protected $fields;
 
     /** @var static */
     public static $instance;
@@ -209,14 +214,25 @@ abstract class Theme {
     }
 
     /**
-     * @return Factory
+     * @return View\Factory
      */
     public function view()
     {
         if (is_null($this->view)) {
-            $this->view = new Factory();
+            $this->view = new View\Factory();
         }
         return $this->view;
+    }
+
+    /**
+     * @return Fields\Factory
+     */
+    public function fields()
+    {
+        if (is_null($this->fields)) {
+            $this->fields = new Fields\Factory();
+        }
+        return $this->fields;
     }
 
     /**
