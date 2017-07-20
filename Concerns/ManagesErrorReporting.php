@@ -18,6 +18,9 @@ trait ManagesErrorReporting {
                 die(view($template, ['exception' => $exception])->render());
             }));
         }
+        $whoops->pushHandler(function ($e) {
+            $this->log()->error($e);
+        });
 
         $whoops->register();
     }

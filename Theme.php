@@ -16,7 +16,8 @@ abstract class Theme {
         Concerns\GeneratesFaviconHtml,
         Concerns\IntegratesBlade,
         Concerns\MovesAdminBar,
-        Concerns\ManagesErrorReporting;
+        Concerns\ManagesErrorReporting,
+        Concerns\ManagesLogging;
 
     /** @var View\Factory */
     protected $view;
@@ -64,6 +65,9 @@ abstract class Theme {
     {
         $this->setPath($path);
 
+        $this->loadConfiguration();
+        $this->registerErrorHandling();
+
         /** Register actions on wp hooks */
         add_action('init', [$this, 'init']);
         add_action('wp_enqueue_scripts', [$this, 'registerAssets']);
@@ -82,8 +86,7 @@ abstract class Theme {
      */
     public function init()
     {
-        $this->registerErrorHandling();
-        $this->loadConfiguration();
+
         $this->registerPostTypes();
         $this->registerEndpoints();
         $this->registerTaxonomies();
