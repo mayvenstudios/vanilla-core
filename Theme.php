@@ -86,7 +86,7 @@ abstract class Theme {
      */
     public function init()
     {
-
+        $this->updateSearchSlug();
         $this->registerPostTypes();
         $this->registerEndpoints();
         $this->registerTaxonomies();
@@ -100,6 +100,12 @@ abstract class Theme {
         $this->moveAdminBar();
         $this->fixPaginationWithCustomOffset();
         $this->startup();
+    }
+
+    protected function updateSearchSlug()
+    {
+        global $wp_rewrite;
+        $wp_rewrite->search_base = $this->config('search.slug', 'search');
     }
 
     /**
