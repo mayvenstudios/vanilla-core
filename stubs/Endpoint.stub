@@ -19,8 +19,13 @@ class DummyClassName extends Endpoint {
      *
      * @var string
      */
-    protected $action = 'DummyName';
+    protected $name = 'DummyName';
 
+    /**
+     * Endpoint handler
+     *
+     * @return mixed
+     */
     public function handle()
     {
         // ...
