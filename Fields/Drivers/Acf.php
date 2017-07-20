@@ -47,12 +47,12 @@ class Acf implements Driver {
      */
     public function add($key, $args)
     {
-        $this->fields[] = [
+        $this->fields[] = array_merge([
             'key' => $this->postType->name() . "_" . $key,
             'label' => array_get($args, 'label', ucfirst($key)),
             'name' => $key,
             'type' => array_get($args, 'type', 'text')
-        ];
+        ], $args);
         return $this;
     }
 
