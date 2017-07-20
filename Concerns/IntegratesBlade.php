@@ -33,7 +33,11 @@ trait IntegratesBlade {
         $template = null;
 
         if(is_404()) {
-            return app()->viewsPath($this->config('not_found_template', '404'));
+            return app()->viewsPath($this->config('not_found_template', 'default'));
+        }
+
+        if(is_search()) {
+            return app()->viewsPath($this->config('search.search_page_template', 'default'));
         }
 
         if(is_tax() || is_tag() || is_category()) {

@@ -181,10 +181,18 @@ abstract class PostType {
     public function arguments()
     {
         return array_merge($this->args() ?: [], [
+            'exclude_from_search' => $this->isExcludedFromSearch(),
             'className' => static::class,
             'defaultTemplate' => isset($this->templates['Default']) ? $this->templates['Default'] : null,
             'archiveTemplate' => $this->archiveTemplate
         ]);
+    }
+
+    protected function isExcludedFromSearch()
+    {
+        $blackList = app()->config('search.excluded_types', []);
+
+        return in_array($this->name, $blackList) || in_array(get_class($this), $blackList);
     }
 
     /**
