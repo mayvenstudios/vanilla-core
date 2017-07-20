@@ -9,7 +9,7 @@ abstract class Endpoint {
      *
      * @var string
      */
-    protected $action;
+    protected $name;
 
     /**
      * Check if Endpoint will be accessible only by authorized users
@@ -35,28 +35,19 @@ abstract class Endpoint {
         return true;
     }
 
-    /**
-     * Register an endpoint
-     */
-    public function register()
+    public function name()
     {
-        add_action("wp_ajax_{$this->action}", [$this, 'handler']);
-
-        if(!$this->authOnly) {
-            add_action("wp_ajax_nopriv_{$this->action}", [$this, 'handler']);
-        }
-
-        return $this;
+        return $this->name;
     }
 
     /**
      * Handle the request if authorized to
      */
     public function handler() {
-        if($this->authorized()) {
-            $this->handle();
-        } else {
+        if(($this->authOnly && !is_user_logged_in()) || !$this->authorized()) {
             wp_send_json(['status' => 'error', 'message' => 'Unauthorized'], 401);
         }
+
+        $this->handle();
     }
 }
