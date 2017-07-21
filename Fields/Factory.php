@@ -18,6 +18,11 @@ class Factory {
         return $this->drivers[$postType->name()];
     }
 
+    public function get($key, $post = false, $format = true)
+    {
+        return function_exists('get_field') ? get_field($key, $post, $format) : null;
+    }
+
     protected function createDriver(PostType $postType)
     {
         $driver = app()->config('custom_fields_driver', Acf::class);
