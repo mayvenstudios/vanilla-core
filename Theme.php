@@ -129,7 +129,7 @@ abstract class Theme {
     public function echoCustomHeader()
     {
         echo "<script>window.Vanilla = " . json_encode($this->vanillaObject()) . "</script>";
-        echo get_field('header_css_js_custom', 'option');
+        echo app()->fields()->get('header_css_js_custom', 'option');
         echo $this->faviconHtml();
     }
 
@@ -138,7 +138,7 @@ abstract class Theme {
      */
     public function echoCustomFooter()
     {
-        echo get_field('custom_js_footer', 'option');
+        echo app()->fields()->get('custom_js_footer', 'option');
     }
 
     /**
