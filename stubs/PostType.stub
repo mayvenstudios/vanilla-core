@@ -14,6 +14,16 @@ class DummyClassName extends PostType {
     protected $name = 'DummyName';
 
     /**
+     * Define if the post type can be viewed on a single or archive page.
+     * If $hasPages = false, $templates and $archiveTemplate properties are ignored
+     *
+     * @see https://codex.wordpress.org/Function_Reference/register_post_type#publicly_queryable
+     *
+     * @var bool
+     */
+    protected $hasPublicPages = true;
+
+    /**
      * You can specify `singular`, `plural` and `slug` for a post type in $names array
      * The default values are generated from the post type name.
      *

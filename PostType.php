@@ -27,6 +27,16 @@ abstract class PostType {
     protected $names = [];
 
     /**
+     * Define if the post type have a single page or archive page.
+     * If $hasPages = false, $templates and $archiveTemplate properties are ignored
+     *
+     * @see https://codex.wordpress.org/Function_Reference/register_post_type#publicly_queryable
+     *
+     * @var bool
+     */
+    protected $hasPublicPages = true;
+
+    /**
      * Define a template for index page
      *
      * @var string
@@ -180,12 +190,13 @@ abstract class PostType {
      */
     public function arguments()
     {
-        return array_merge($this->args() ?: [], [
+        return array_merge([
             'exclude_from_search' => $this->isExcludedFromSearch(),
             'className' => static::class,
             'defaultTemplate' => isset($this->templates['Default']) ? $this->templates['Default'] : null,
+            'publicly_queryable' => !! $this->hasPublicPages,
             'archiveTemplate' => $this->archiveTemplate
-        ]);
+        ], $this->args() ?: []);
     }
 
     protected function isExcludedFromSearch()
