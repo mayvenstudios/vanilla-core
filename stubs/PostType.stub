@@ -30,7 +30,7 @@ class DummyClassName extends PostType {
      *
      * @var string
      */
-    protected $archiveTemplate = 'DummySlug/index'; // resources/views/DummySlug/index.blade.php
+    protected $archiveTemplate = 'default'; // resources/views/default.blade.php
 
     /**
      * Templates available for a post type
@@ -38,7 +38,7 @@ class DummyClassName extends PostType {
      * @var string
      */
     protected $templates = [
-        'Default' => 'DummySlug/single' // resources/views/DummySlug/single.blade.php
+        'Default' => 'default' // resources/views/default.blade.php
     ];
 
     /**
