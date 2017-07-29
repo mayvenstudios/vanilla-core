@@ -37,6 +37,17 @@ abstract class PostType {
     protected $hasPublicPages = true;
 
     /**
+     * Define if the post type has archive page
+     * If $hasArchivePage = false, $archiveTemplate property is ignored
+     * Change in this property requires `wp flush-rewrites` call for the changes to be applied
+     *
+     * @see https://codex.wordpress.org/Function_Reference/register_post_type#has_archive
+     *
+     * @var bool
+     */
+    protected $hasArchivePage = true;
+
+    /**
      * Define a template for index page
      *
      * @var string
@@ -195,7 +206,8 @@ abstract class PostType {
             'className' => static::class,
             'defaultTemplate' => isset($this->templates['Default']) ? $this->templates['Default'] : null,
             'publicly_queryable' => !! $this->hasPublicPages,
-            'archiveTemplate' => $this->archiveTemplate
+            'has_archive' => !! $this->hasArchivePage,
+            'archiveTemplate' => $this->archiveTemplate,
         ], $this->args() ?: []);
     }
 
