@@ -8,7 +8,7 @@ class DummyClassName extends Endpoint {
 
     /**
      * Set authOnly to true if you want the endpoint to be
-     * accessible only bu authorized users
+     * accessible only by authorized users
      *
      * @var bool
      */
