@@ -134,7 +134,7 @@ if (!function_exists('extend_post_type')) {
         $object = get_post_type_object($type);
         $whiteList = [
             'archiveTemplate', 'defaultTemplate', 'className',
-            'exclude_from_search', 'publicly_queryable', 'has_archive'
+            'exclude_from_search', 'has_archive'
         ];
         foreach ($whiteList as $key) {
             if(isset($args[$key])) {
