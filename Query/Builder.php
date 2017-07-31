@@ -15,12 +15,12 @@ class Builder {
     {
         $metaQuery = $this->buildMetaQuery();
         if ($metaQuery) {
-            $this->set('meta_query', $metaQuery);
+            $this->setParameter('meta_query', $metaQuery);
         }
 
         $taxQuery = $this->buildTaxonomyQuery();
         if ($taxQuery) {
-            $this->set('tax_query', $taxQuery);
+            $this->setParameter('tax_query', $taxQuery);
         }
 
         if (!isset($this->args['_paged']) && isset($_REQUEST['page_num'])) {
@@ -43,7 +43,7 @@ class Builder {
      *
      * @return $this
      */
-    public function set($key, $value = null)
+    public function setParameter($key, $value = null)
     {
         if (is_array($key)) {
             $this->args = array_merge($this->args, $key);
@@ -54,6 +54,14 @@ class Builder {
         return $this;
     }
 
+    public function getParameter($key, $default = null)
+    {
+        if(isset($this->args[$key])) {
+            return $this->args[$key];
+        }
+        return $default;
+    }
+
     /**
      * @param mixed $author
      *
@@ -62,13 +70,13 @@ class Builder {
     public function author($author)
     {
         if (is_string($author)) {
-            return $this->set('author_name', $author);
+            return $this->setParameter('author_name', $author);
         }
 
         if (!is_array($author)) {
             $author = [$author];
         }
-        return $this->set('author__in', $author);
+        return $this->setParameter('author__in', $author);
     }
 
     /**
@@ -81,7 +89,7 @@ class Builder {
         if (!is_array($author)) {
             $author = [$author];
         }
-        return $this->set('author__not_in', $author);
+        return $this->setParameter('author__not_in', $author);
     }
 
     /**
@@ -94,7 +102,7 @@ class Builder {
         if (!is_array($post)) {
             $post = [$post];
         }
-        return $this->set('post__in', $post);
+        return $this->setParameter('post__in', $post);
     }
 
     /**
@@ -107,7 +115,7 @@ class Builder {
         if (!is_array($post)) {
             $post = [$post];
         }
-        return $this->set('post__not_in', $post);
+        return $this->setParameter('post__not_in', $post);
     }
 
     /**
@@ -117,7 +125,16 @@ class Builder {
      */
     public function type($type)
     {
-        return $this->set('post_type', $type);
+        if(!is_array($type)) {
+            $type = [$type];
+        }
+
+        $existing = $this->getParameter('post_type');
+        if($existing) {
+            $type = array_unique(array_merge($existing, $type));
+        }
+
+        return $this->setParameter('post_type', $type);
     }
 
     /**
@@ -146,14 +163,14 @@ class Builder {
     public function parent($value)
     {
         if ($value === 0) {
-            return $this->set('post_parent', 0);
+            return $this->setParameter('post_parent', 0);
         }
 
         if (!is_array($value)) {
             $value = [$value];
         }
 
-        return $this->set('post_parent__in', $value);
+        return $this->setParameter('post_parent__in', $value);
     }
 
     /**
@@ -163,7 +180,7 @@ class Builder {
      */
     public function slug($value)
     {
-        return $this->set('name', $value);
+        return $this->setParameter('name', $value);
     }
 
     /**
@@ -176,7 +193,7 @@ class Builder {
         if (!is_array($value)) {
             $value = [$value];
         }
-        return $this->set('post_status', $value);
+        return $this->setParameter('post_status', $value);
     }
 
     /**
@@ -186,7 +203,7 @@ class Builder {
      */
     public function search($keyword)
     {
-        return $this->set('s', $keyword);
+        return $this->setParameter('s', $keyword);
     }
 
     /**
@@ -198,11 +215,11 @@ class Builder {
     public function orderBy($orderBy, $order = 'DESC')
     {
         if (is_array($orderBy)) {
-            return $this->set('orderby', $orderBy);
+            return $this->setParameter('orderby', $orderBy);
         }
 
         if (in_array(strtoupper($orderBy), ['NONE', 'RAND'])) {
-            return $this->set('orderby', $orderBy);
+            return $this->setParameter('orderby', $orderBy);
         }
 
         $words = explode(' ', $orderBy);
@@ -211,7 +228,7 @@ class Builder {
             $orderBy[$word] = $order;
         }
 
-        return $this->set('orderby', $orderBy);
+        return $this->setParameter('orderby', $orderBy);
     }
 
     /**
@@ -221,7 +238,7 @@ class Builder {
      */
     public function ignoreStickyPosts()
     {
-        return $this->set('ignore_sticky_posts', true);
+        return $this->setParameter('ignore_sticky_posts', true);
     }
 
     /**
@@ -246,7 +263,7 @@ class Builder {
      */
     public function perPage($val)
     {
-        return $this->set('posts_per_page', $val);
+        return $this->setParameter('posts_per_page', $val);
     }
 
     /**
@@ -262,8 +279,8 @@ class Builder {
      */
     public function page($val)
     {
-        $this->set('_paged', $val);
-        return $this->set('paged', $val);
+        $this->setParameter('_paged', $val);
+        return $this->setParameter('paged', $val);
     }
 
     /**
@@ -276,8 +293,8 @@ class Builder {
      */
     public function offset($val)
     {
-        $this->set('offset', $val);
-        return $this->set('_offset', $val);
+        $this->setParameter('offset', $val);
+        return $this->setParameter('_offset', $val);
     }
 
     /**
@@ -287,7 +304,7 @@ class Builder {
      */
     public function dateRaw($query)
     {
-        return $this->set('date_query', $query);
+        return $this->setParameter('date_query', $query);
     }
 
     /**
