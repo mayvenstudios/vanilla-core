@@ -292,3 +292,27 @@ if (!function_exists('excerpt')) {
         return $excerpt . " " . $more;
     }
 }
+
+if (!function_exists('log_info')) {
+
+    /**
+     * Add an info line to the logfile
+     *
+     * @param $message
+     */
+    function log_info($message) {
+        app()->log()->info($message);
+    }
+}
+
+if (!function_exists('log_error')) {
+
+    /**
+     * Add an error line to the logfile
+     *
+     * @param $message
+     */
+    function log_error($message) {
+        app()->log()->error($message);
+    }
+}
