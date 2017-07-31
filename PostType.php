@@ -128,15 +128,22 @@ abstract class PostType {
         return ob_get_clean();
     }
 
+    public function slug()
+    {
+        return isset($this->names['slug']) ? $this->names['slug'] : str_slug(str_plural($this->name()));
+    }
+
     /**
      * Register post type
      */
     public function register()
     {
-        if (!get_post_type_object($this->name())) {
+        $existing = get_post_type_object($this->name());
+        if (!$existing || !$existing->_builtin) {
             register_extended_post_type($this->name(), $this->arguments(), $this->names);
         } else {
             extend_post_type($this->name(), $this->arguments(), $this->names);
+            add_rewrite_rule("{$this->slug()}/?", "index.php?&post_type={$this->name()}", 'top');
         }
 
         $this->registerTemplates();
@@ -183,7 +190,7 @@ abstract class PostType {
      */
     public function name()
     {
-        return $this->name;
+        return $this->name ? : class_basename($this);
     }
 
     /**

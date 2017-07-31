@@ -30,7 +30,11 @@ trait IntegratesBlade {
 
     protected function decideTemplate()
     {
-        $template = null;
+        $postType = get_post_type_object(get_post_type());
+        if($postType && $postType->_builtin && is_archive() && !$postType->_has_archive) {
+            global $wp_query;
+            $wp_query->set_404();
+        }
 
         if(is_404()) {
             return app()->viewsPath($this->config('not_found_template', 'default'));
@@ -47,11 +51,11 @@ trait IntegratesBlade {
         }
 
         $predefinedTemplate = get_post()->page_template;
-        if ($predefinedTemplate && $predefinedTemplate !== 'default') {
+        if (!is_archive() && $predefinedTemplate && $predefinedTemplate !== 'default') {
             return app()->viewsPath($predefinedTemplate);
         }
 
-        if ($postType = get_post_type_object(get_post_type())) {
+        if ($postType) {
             $viewType = is_archive() ? 'archiveTemplate' : 'defaultTemplate';
             if ($view = $postType->$viewType) {
                 return app()->viewsPath($view);

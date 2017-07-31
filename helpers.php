@@ -132,10 +132,19 @@ if (!function_exists('extend_post_type')) {
          * so we only apply some of the arguments provided
          */
         $object = get_post_type_object($type);
-        foreach (['archiveTemplate', 'defaultTemplate', 'className', 'exclude_from_search'] as $key) {
+        $whiteList = [
+            'archiveTemplate', 'defaultTemplate', 'className',
+            'exclude_from_search', 'publicly_queryable', 'has_archive'
+        ];
+        foreach ($whiteList as $key) {
             if(isset($args[$key])) {
                 $object->$key = $args[$key];
             }
+        }
+
+        if($object->_builtin) {
+            $object->_has_archive = $object->has_archive;
+            $object->has_archive = true;
         }
 
         $wp_post_types[$type] = $object;
