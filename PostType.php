@@ -85,7 +85,7 @@ abstract class PostType {
      */
     public static function getInstance()
     {
-        $key = get_the_ID() ?: 'null';
+        $key = get_called_class() . get_the_ID() ?: 'null';
         if (!isset(static::$instances[$key])) {
             static::$instances[$key] = new static();
         }
