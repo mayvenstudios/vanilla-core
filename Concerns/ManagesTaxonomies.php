@@ -12,8 +12,8 @@ trait ManagesTaxonomies {
      */
     protected function registerTaxonomies()
     {
-        $names = $this->taxonomies()->map(function (Taxonomy $endpoint) {
-            return $endpoint->register()->name();
+        $names = $this->taxonomies()->map(function (Taxonomy $taxonomy) {
+            return $taxonomy->register()->name();
         });
 
         collect(['post_tag', 'category'])->each(function ($name) use ($names) {
