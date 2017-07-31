@@ -2,8 +2,8 @@
 
 namespace Vanilla;
 
-use Vanilla\View;
 use Vanilla\Fields;
+use Vanilla\View;
 
 abstract class Theme {
 
@@ -86,6 +86,7 @@ abstract class Theme {
      */
     public function init()
     {
+        $this->rurnOffPageForPosts();
         $this->updateSearchSlug();
         $this->registerPostTypes();
         $this->registerEndpoints();
@@ -100,6 +101,16 @@ abstract class Theme {
         $this->moveAdminBar();
         $this->fixPaginationWithCustomOffset();
         $this->startup();
+    }
+
+    protected function rurnOffPageForPosts()
+    {
+        add_filter("pre_option_page_for_posts", function () {
+            return null;
+        });
+        add_action('admin_head', function () {
+            echo '<style type="text/css">#front-static-pages label[for="page_for_posts"] {display:none;}</style>';
+        });
     }
 
     protected function updateSearchSlug()
