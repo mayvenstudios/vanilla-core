@@ -52,7 +52,7 @@ abstract class PostType {
      *
      * @var string
      */
-    protected $archiveTemplate;
+    protected $archiveTemplate = 'default';
 
     /**
      * List of available templates for a PostType

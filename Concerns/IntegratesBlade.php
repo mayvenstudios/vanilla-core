@@ -50,6 +50,10 @@ trait IntegratesBlade {
             return app()->viewsPath($view);
         }
 
+        if(is_home() && get_option('show_on_front') === 'posts') {
+            return app()->viewsPath(get_post_type_object('post')->archiveTemplate);
+        }
+
         $predefinedTemplate = get_post()->page_template;
         if (!is_archive() && $predefinedTemplate && $predefinedTemplate !== 'default') {
             return app()->viewsPath($predefinedTemplate);
