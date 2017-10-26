@@ -21,7 +21,9 @@ trait IntegratesBlade {
 
     public function overrideTemplate()
     {
-        $template = str_replace('.', '/', $this->decideTemplate()) . '.blade.php';
+        $parts = explode('/', $this->decideTemplate());
+        $parts[count($parts) - 1] = str_replace('.', '/', $parts[count($parts) - 1]);
+        $template = join('/', $parts) . '.blade.php';
 
         $compiled = $this->compiledPath(sha1("WP: " . $template) . '.php');
         file_put_contents($compiled, "<?php echo app()->view()->make('path: {$template}')->render(); ?>");
