@@ -3,6 +3,7 @@
 namespace Vanilla;
 
 use Vanilla\Fields;
+use Vanilla\Query\Builder;
 use Vanilla\View;
 
 abstract class Theme {
@@ -324,5 +325,10 @@ abstract class Theme {
     {
         $theme = wp_get_theme();
         return md5($theme->get_theme_root() . '/' . $theme->get_stylesheet());
+    }
+
+    public function query()
+    {
+        return new Builder();
     }
 }

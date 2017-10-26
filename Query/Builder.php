@@ -32,6 +32,28 @@ class Builder {
             $this->perPage(9999);
         }
 
+        if(!isset($this->args['post_type'])) {
+            $this->args['post_type'] = app()->postTypeNames();
+        }
+
+        if(isset($this->args['author__in'])) {
+            $this->args['author__in'] = array_map(function($element) {
+                if(is_string($element)) {
+                    return get_user_by('login', $element)->ID;
+                }
+                return $element;
+            }, $this->args['author__in']);
+        }
+
+        if(isset($this->args['author__not_in'])) {
+            $this->args['author__not_in'] = array_map(function($element) {
+                if(is_string($element)) {
+                    return get_user_by('login', $element)->ID;
+                }
+                return $element;
+            }, $this->args['author__not_in']);
+        }
+
         return $this->args;
     }
 
@@ -69,13 +91,10 @@ class Builder {
      */
     public function author($author)
     {
-        if (is_string($author)) {
-            return $this->setParameter('author_name', $author);
-        }
-
         if (!is_array($author)) {
             $author = [$author];
         }
+
         return $this->setParameter('author__in', $author);
     }
 
@@ -89,6 +108,7 @@ class Builder {
         if (!is_array($author)) {
             $author = [$author];
         }
+
         return $this->setParameter('author__not_in', $author);
     }
 
@@ -252,6 +272,18 @@ class Builder {
     {
         $val = $val ?: get_option('posts_per_page');
         return $this->perPage($val)->paginator();
+    }
+
+    /**
+     * Limit the number of returned posts
+     *
+     * @param $val
+     *
+     * @return Builder
+     */
+    public function limit($val)
+    {
+        return $this->perPage($val);
     }
 
     /**

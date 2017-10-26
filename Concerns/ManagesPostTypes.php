@@ -7,17 +7,28 @@ use Illuminate\Support\Collection;
 
 trait ManagesPostTypes {
 
+    /** @var Collection */
+    protected $postTypeNames;
+
+    /**
+     * @return array
+     */
+    public function postTypeNames()
+    {
+        return $this->postTypeNames->toArray();
+    }
+
     /**
      * Register custom post types.
      */
     protected function registerPostTypes()
     {
-        $names = $this->postTypes()->map(function (PostType $postType) {
+        $this->postTypeNames = $this->postTypes()->map(function (PostType $postType) {
             return $postType->register()->name();
         });
 
-        collect(['post', 'page', 'attachment'])->each(function ($name) use ($names) {
-            if (!$names->contains($name)) {
+        collect(['post', 'page', 'attachment'])->each(function ($name) {
+            if (!$this->postTypeNames->contains($name)) {
                 unregister_post_type_forced($name);
             }
         });

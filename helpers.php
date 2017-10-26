@@ -176,7 +176,7 @@ if (!function_exists('post')) {
         setup_postdata(get_post());
 
         $postType = get_post_type_object(get_post_type());
-        $class = $postType->className;
+        $class = isset($postType->className) ? $postType->className : null;
 
         /**
          * Try to get instance of the post type class
@@ -316,3 +316,14 @@ if (!function_exists('log_error')) {
         app()->log()->error($message);
     }
 }
+
+if (!function_exists('query')) {
+
+    /**
+     * @return \Vanilla\Query\Builder
+     */
+    function query() {
+        return app()->query();
+    }
+}
+
