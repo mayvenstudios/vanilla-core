@@ -327,3 +327,19 @@ if (!function_exists('query')) {
     }
 }
 
+if (!function_exists('uploads_path')) {
+
+    /**
+     * Returns a path in the `uploads` folder
+     *
+     * @param $dir
+     * @return string path
+     */
+    function uploads_path($dir = null) {
+        $path = join(DIRECTORY_SEPARATOR, [wp_upload_dir()['path'], $dir]);
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+        return $path;
+    }
+}
