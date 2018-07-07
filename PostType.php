@@ -143,6 +143,7 @@ abstract class PostType {
             register_extended_post_type($this->name(), $this->arguments(), $this->names);
         } else {
             extend_post_type($this->name(), $this->arguments(), $this->names);
+            add_rewrite_rule("{$this->slug()}/([^/]+)?", "index.php?&post_type={$this->name()}&name=\$matches[1]", 'top');
             add_rewrite_rule("{$this->slug()}/?", "index.php?&post_type={$this->name()}", 'top');
         }
 
