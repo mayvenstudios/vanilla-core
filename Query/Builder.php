@@ -364,6 +364,14 @@ class Builder {
     }
 
     /**
+     * @return integer
+     */
+    public function count()
+    {
+        return $this->createQuery()->post_count;
+    }
+
+    /**
      * @param \WP_Query $wpQuery
      *
      * @return \Generator
