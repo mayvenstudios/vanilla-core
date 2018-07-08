@@ -71,6 +71,7 @@ abstract class Theme {
 
         /** Register actions on wp hooks */
         add_action('init', [$this, 'init']);
+        add_action('phpmailer_init', [$this, 'configureSmtp']);
         add_action('wp_enqueue_scripts', [$this, 'registerAssets']);
         add_action('wp_head', [$this, 'echoCustomHeader']);
         add_action('wp_footer', [$this, 'echoCustomFooter']);
@@ -119,6 +120,22 @@ abstract class Theme {
         global $wp_rewrite;
         $wp_rewrite->search_base = $this->config('search.slug', 'search');
     }
+
+    public function configureSmtp($mailer)
+    {
+        $config = $this->config('email');
+        if(!$config) return;
+
+        $mailer->isSMTP();
+        $mailer->SMTPAuth = true;
+        $mailer->Host = $config['smtp_host'];
+        $mailer->Port = $config['smtp_port'];
+        $mailer->Username = $config['smtp_username'];
+        $mailer->Password = $config['smtp_password'];
+        $mailer->From = $config['from'];
+        $mailer->FromName = $config['from_name'];
+    }
+
 
     /**
      * Register .js and .css assets
