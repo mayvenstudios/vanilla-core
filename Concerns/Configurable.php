@@ -2,8 +2,6 @@
 
 namespace Vanilla\Concerns;
 
-use Dotenv\Dotenv;
-
 trait Configurable {
     /**
      * @var array loaded configuration
@@ -30,8 +28,6 @@ trait Configurable {
      */
     protected function loadConfiguration()
     {
-        (new Dotenv($this->path()))->load();
-
         $this->configuration = require_once $this->configPath('app.php');
         $files = glob($this->configPath('*'));
         foreach ($files as $path) {
