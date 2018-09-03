@@ -25,7 +25,7 @@ trait IntegratesBlade {
         $parts[count($parts) - 1] = str_replace('.', '/', $parts[count($parts) - 1]);
         $template = join('/', $parts) . '.blade.php';
 
-        $compiled = $this->compiledPath(sha1("WP: " . $template) . '.php');
+        $compiled = $this->compiledPath(sha1("WP: " . $template));
         file_put_contents($compiled, "<?php echo app()->view()->make('path: {$template}')->render(); ?>");
         return $compiled;
     }

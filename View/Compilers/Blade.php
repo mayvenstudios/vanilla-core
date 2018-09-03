@@ -395,7 +395,7 @@ class Blade implements CompilerInterface {
      */
     public function getCompiledPath($path)
     {
-        return app()->compiledPath(sha1($path) . '.php');
+        return app()->compiledPath(sha1($path));
     }
 
     /**
