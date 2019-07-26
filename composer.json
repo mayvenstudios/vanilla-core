@@ -9,7 +9,7 @@
     ],
     "require": {
         "filp/whoops": "^2.1",
-        "illuminate/support": "^5.4",
+        "illuminate/support": "5.7.*",
         "symfony/var-dumper": "^3.3",
         "symfony/debug": "^3.3",
         "johnbillion/extended-taxos": "~2.0",
