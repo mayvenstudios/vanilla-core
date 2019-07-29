@@ -147,6 +147,7 @@ abstract class Theme {
             wp_deregister_script('jquery');
         }
 
+        wp_enqueue_script('app-manifest', mix('/js/manifest.js'), [], null, true);
         wp_enqueue_script('vendor', mix('/js/vendor.js'), [], null, true);
         wp_enqueue_script('script', mix('/js/app.js'), $noJQuery ? [] : ['jquery'], null, true);
         wp_enqueue_style('style', mix('/css/theme.css'), [], null);
