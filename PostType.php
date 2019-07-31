@@ -7,6 +7,11 @@ use Vanilla\Query\Builder;
 abstract class PostType {
 
     /**
+     * @var \WP_Post
+     */
+    protected $wp_post;
+
+    /**
      * @var array
      */
     protected static $instances = [];
@@ -80,16 +85,20 @@ abstract class PostType {
      */
     abstract protected function args();
 
-    /**
-     * @return mixed
-     */
-    public static function getInstance()
+
+    public function __construct(\WP_Post $wp_post = null)
     {
-        $key = get_called_class() . get_the_ID() ?: 'null';
-        if (!isset(static::$instances[$key])) {
-            static::$instances[$key] = new static();
-        }
-        return static::$instances[$key];
+        $this->wp_post = $wp_post ?: get_post();
+    }
+
+    public static function find($id)
+    {
+        return new static(get_post($id));
+    }
+
+    public function field($name)
+    {
+        return get_field($name, $this->id);
     }
 
     /**
@@ -99,7 +108,7 @@ abstract class PostType {
      */
     public function id()
     {
-        return get_the_ID() ?: null;
+        return object_get($this->wp_post, 'ID');
     }
 
     /**
@@ -110,9 +119,9 @@ abstract class PostType {
      *
      * @return string
      */
-    public function title($before = '', $after = '')
+    public function title()
     {
-        return the_title($before, $after, false);
+        return object_get($this->wp_post, 'post_title');
     }
 
     /**
@@ -226,6 +235,11 @@ abstract class PostType {
         return in_array($this->name, $blackList) || in_array(get_class($this), $blackList);
     }
 
+    public function hasTaxonomy($class)
+    {
+        return collect(wp_get_post_terms($this->id, (new $class)->name()));
+    }
+
     /**
      * @return Builder
      */
@@ -264,6 +278,11 @@ abstract class PostType {
      */
     public function __get($name)
     {
+        if(method_exists($this, $name)) {
+            return $this->$name();
+        } else {
+            object_get($this->wp_post, $name);
+        }
         return get_post()->$name;
     }
 

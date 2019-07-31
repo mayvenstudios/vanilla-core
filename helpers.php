@@ -178,12 +178,7 @@ if (!function_exists('post')) {
         $postType = get_post_type_object(get_post_type());
         $class = isset($postType->className) ? $postType->className : null;
 
-        /**
-         * Try to get instance of the post type class
-         *
-         * @see Vanilla\PostType::getInstance()
-         */
-        return $class ? $class::getInstance() : null;
+        return $class ? new $class(get_post()) : null;
     }
 }
 

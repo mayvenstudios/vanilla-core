@@ -274,6 +274,11 @@ class Builder {
         return $this->perPage($val)->paginator();
     }
 
+    public function take($val)
+    {
+        return $this->limit($val);
+    }
+
     /**
      * Limit the number of returned posts
      *
@@ -378,10 +383,12 @@ class Builder {
      */
     public static function generator(\WP_Query $wpQuery)
     {
+        $posts = collect();
         while ($wpQuery->have_posts()) {
             $wpQuery->the_post();
-            yield post();
+            $posts->push(post());
         }
         wp_reset_postdata();
+        return $posts;
     }
 }

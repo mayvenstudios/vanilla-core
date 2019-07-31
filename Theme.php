@@ -18,7 +18,8 @@ abstract class Theme {
         Concerns\IntegratesBlade,
         Concerns\MovesAdminBar,
         Concerns\ManagesErrorReporting,
-        Concerns\ManagesLogging;
+        Concerns\ManagesLogging,
+        Concerns\HandlesEvents;
 
     /** @var View\Factory */
     protected $view;
@@ -102,6 +103,7 @@ abstract class Theme {
         $this->requireExtensions();
         $this->moveAdminBar();
         $this->fixPaginationWithCustomOffset();
+        $this->registerEvents();
         $this->startup();
     }
 

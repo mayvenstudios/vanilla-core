@@ -47,7 +47,7 @@ abstract class Taxonomy {
     public function postTypeNames()
     {
         return collect($this->postTypes)->map(function ($className) {
-            return $className::getInstance()->name();
+            return (new $className)->name();
         })->toArray();
     }
 
