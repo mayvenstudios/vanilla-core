@@ -280,10 +280,8 @@ abstract class PostType {
     {
         if(method_exists($this, $name)) {
             return $this->$name();
-        } else {
-            object_get($this->wp_post, $name);
         }
-        return get_post()->$name;
+        return object_get($this->wp_post, $name);
     }
 
     /**
