@@ -7,6 +7,8 @@ use Whoops\Handler\CallbackHandler;
 
 trait ManagesErrorReporting {
 
+    public $whoops;
+
     public function registerErrorHandling()
     {
         $whoops = new Run;
@@ -23,5 +25,7 @@ trait ManagesErrorReporting {
         });
 
         $whoops->register();
+
+        $this->whoops = $whoops;
     }
 }

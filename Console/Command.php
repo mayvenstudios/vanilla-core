@@ -52,11 +52,10 @@ abstract class Command {
      */
     public function handler($args, $named)
     {
-        try {
-            $this->handle($args, $named);
-        } catch (\Exception $e) {
+        app()->whoops->pushHandler(function ($e) {
             $this->error($e->getMessage());
-        }
+        });
+        $this->handle($args, $named);
     }
 
     /**

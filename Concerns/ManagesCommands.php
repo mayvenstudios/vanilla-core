@@ -30,8 +30,8 @@ trait ManagesCommands {
             return;
         }
 
-        $this->commands()->each(function (Command $endpoint) {
-            $endpoint->register();
+        $this->commands()->each(function (Command $command) {
+            $command->register();
         });
     }
 
