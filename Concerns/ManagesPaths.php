@@ -54,7 +54,7 @@ trait ManagesPaths {
     public function viewsPath($path = '')
     {
         $path = ltrim($path, DIRECTORY_SEPARATOR);
-        return $this->path(join(DIRECTORY_SEPARATOR, ['resources', 'views', $path]));
+        return $this->path(join(DIRECTORY_SEPARATOR, ['views', $path]));
     }
 
     public function compiledPath($path = '')
@@ -72,6 +72,6 @@ trait ManagesPaths {
     public function assetsPath($path)
     {
         $path = ltrim($path, DIRECTORY_SEPARATOR);
-        return $this->path(join(DIRECTORY_SEPARATOR, ['resources', 'assets', $path]));
+        return $this->path(join(DIRECTORY_SEPARATOR, ['assets', $path]));
     }
 }

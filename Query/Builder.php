@@ -29,7 +29,7 @@ class Builder {
 
         if (!isset($this->args['posts_per_page'])) {
             $this->page(1);
-            $this->perPage(9999);
+            $this->perPage(-1);
         }
 
         if(!isset($this->args['post_type'])) {
