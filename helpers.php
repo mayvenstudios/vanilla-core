@@ -182,6 +182,20 @@ if (!function_exists('post')) {
     }
 }
 
+if (!function_exists('archive')) {
+
+    /**
+     * Get the *current* custom post type object
+     *
+     * @return null|\Vanilla\PostType
+     */
+    function archive()
+    {
+        $post = post();
+        return $post ? $post->archive() : null;
+    }
+}
+
 if (!function_exists('view')) {
 
     /**

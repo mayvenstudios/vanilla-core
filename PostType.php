@@ -53,6 +53,13 @@ abstract class PostType {
     protected $hasArchivePage = true;
 
     /**
+     * Archive page object used to access meta data and custom fields
+     *
+     * @var
+     */
+    protected $archivePage;
+
+    /**
      * Define a template for index page
      *
      * @var string
@@ -238,6 +245,14 @@ abstract class PostType {
     public function hasTaxonomy($class)
     {
         return collect(wp_get_post_terms($this->id, (new $class)->name()));
+    }
+
+    public function archive()
+    {
+        if(!$this->archivePage) {
+            $this->archivePage = app()->query()->type('page')->slug($this->slug())->take(1)->get()->pop();
+        }
+        return $this->archivePage;
     }
 
     /**
