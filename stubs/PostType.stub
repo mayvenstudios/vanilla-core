@@ -51,7 +51,7 @@ class DummyClassName extends PostType {
      *
      * @var string
      */
-    protected $archiveTemplate = 'default'; // resources/views/default.blade.php
+    protected $archiveTemplate = 'default'; // views/default.blade.php
 
     /**
      * Templates available for a post type

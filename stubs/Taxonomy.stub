@@ -20,7 +20,7 @@ class DummyClassName extends Taxonomy {
      *
      * @var string
      */
-    protected $archiveTemplate = 'default'; // resources/views/default.blade.php
+    protected $archiveTemplate = 'default'; // views/default.blade.php
 
     /**
      * Taxonomy settings. For available options
