@@ -72,8 +72,8 @@ abstract class Taxonomy {
     /**
      * Taxonomy settings. For available options
      *
-     * @see https://github.com/johnbillion/extended-taxos register_extended_taxonomy()
-     * @see https://codex.wordpress.org/Function_Reference/register_taxonomy register_taxonomy()
+     * Used as $args parameter in register_extended_taxonomy()
+     * @see https://github.com/johnbillion/extended-cpts/wiki/Registering-taxonomies
      *
      * @return void|array
      */
