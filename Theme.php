@@ -120,7 +120,10 @@ abstract class Theme {
     protected function updateSearchSlug()
     {
         global $wp_rewrite;
-        $wp_rewrite->search_base = $this->config('search.slug', 'search');
+        $slug = $this->config('search.slug', 'search');
+
+        $wp_rewrite->search_base = $slug;
+        add_rewrite_rule("$slug$", "index.php?&s=", 'top');
     }
 
     public function configureSmtp($mailer)

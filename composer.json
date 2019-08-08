@@ -14,8 +14,7 @@
         "symfony/debug": "^3.3",
         "johnbillion/extended-taxos": "~2.0",
         "johnbillion/extended-cpts": "~3.0",
-        "monolog/monolog": "^1.23",
-        "vlucas/phpdotenv": "^3.3"
+        "monolog/monolog": "^1.23"
     },
     "autoload": {
         "psr-4": {
