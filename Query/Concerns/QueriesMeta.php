@@ -77,7 +77,7 @@ trait QueriesMeta {
 
     protected function addMetaQuery($relation, $meta, $operator, $value = null, $type = null)
     {
-        if(is_callable($meta)) {
+        if($meta instanceof \Closure) {
             return $this->pushMetaQuery($relation, $meta(new static)->buildMetaQuery());
         }
 
