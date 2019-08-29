@@ -6,15 +6,14 @@ trait HandlesEvents
 {
     public function registerEvents()
     {
-        add_action('post_updated', [$this, 'handlePostUpdated'], 10, 3);
+        add_action('acf/save_post', [$this, 'handlePostUpdated'], 15);
         add_action('delete_post', [$this, 'handlePostDeleted']);
         add_action('wp_trash_post', [$this, 'handlePostDeleted']);
-
-
     }
 
-    public function handlePostUpdated($id, $post, $update)
+    public function handlePostUpdated($id)
     {
+        $post = get_post($id);
         if($post->post_status === 'trash') return;
 
         $postType = get_post_type_object($post->post_type);
