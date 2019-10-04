@@ -187,11 +187,12 @@ if (!function_exists('archive')) {
     /**
      * Get the *current* custom post type object
      *
+     * @param null $className
      * @return null|\Vanilla\PostType
      */
-    function archive()
+    function archive($className = null)
     {
-        $post = post();
+        $post = $className ? new $className() : post();
         return $post ? $post->archive() : null;
     }
 }
